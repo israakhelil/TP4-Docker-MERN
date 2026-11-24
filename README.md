@@ -49,7 +49,7 @@ docker build -t mern-client ./Client
 docker images
 ```
 
-![docker images](captures/01-docker-images.png)
+
 
 ## Exécution manuelle
 
@@ -61,17 +61,16 @@ docker run -d --name client --network mern-network -p 3000:3000 mern-client
 docker ps
 ```
 
-![docker ps](captures/02-docker-ps-manuel.png)
 
 ```bash
 curl http://localhost:9000/api/health
 ```
 
-![curl](captures/03-curl-api.png)
+
 
 Client : http://localhost:3000
 
-![client](captures/04-page-client.png)
+
 
 ## Docker Compose
 
@@ -81,4 +80,3 @@ docker compose ps
 docker compose down
 ```
 
-![compose ps](captures/05-compose-ps.png)
