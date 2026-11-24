@@ -2,8 +2,9 @@ TP4:
 
 Structure du projet:
 
+
 TP4-Docker-MERN/
-TP4-Docker-MERN/
+
 ├── Client/
 │   ├── Dockerfile
 │   └── .dockerignore
@@ -14,8 +15,11 @@ TP4-Docker-MERN/
 ├── docker-compose.yml
 └── README.md
 
+
 Dockerfile du serveur
+
 dockerfile
+
 FROM node:lts-alpine
 WORKDIR /app
 COPY package*.json ./
@@ -25,8 +29,11 @@ EXPOSE 9000
 ENV MONGO_URI=mongodb://mongodb:27017/mern-db
 CMD ["npm", "start"]
 
+
 Dockerfile du client
+
 dockerfile
+
 FROM node:lts-alpine
 WORKDIR /app
 COPY package*.json ./
