@@ -79,4 +79,4 @@ docker compose up --build
 docker compose ps
 docker compose down
 ```
-
+les etapes: aamalt clone l projet eli f td/aamalt creation l dockerfile ff serveur w fel client/réseau docker(contenaires)/création du fichier compose/création de jenkinsfile et lancement dun build pour avoir les stages
