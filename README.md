@@ -1,1 +1,84 @@
+# TP4
 
+## Structure du projet
+
+TP4-Docker-MERN/
+├── Client/
+│   ├── Dockerfile
+│   └── .dockerignore
+├── Server/
+│   ├── Dockerfile
+│   └── .dockerignore
+├── captures/
+├── docker-compose.yml
+└── README.md
+
+
+## Dockerfile du serveur
+
+```dockerfile
+FROM node:lts-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 9000
+ENV MONGO_URI=mongodb://mongodb:27017/mern-db
+CMD ["npm", "start"]
+```
+
+## Dockerfile du client
+
+```dockerfile
+FROM node:lts-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+RUN npm install -g serve
+EXPOSE 3000
+CMD ["serve", "-s", "dist", "-l", "3000"]
+```
+
+## Construction des images
+
+```bash
+docker build -t mern-server ./Server
+docker build -t mern-client ./Client
+docker images
+```
+
+![docker images](captures/01-docker-images.png)
+
+## Exécution manuelle
+
+```bash
+docker network create mern-network
+docker run -d --name mongodb --network mern-network mongo
+docker run -d --name server --network mern-network -p 9000:9000 -e MONGO_URI=mongodb://mongodb:27017/mern-db mern-server
+docker run -d --name client --network mern-network -p 3000:3000 mern-client
+docker ps
+```
+
+![docker ps](captures/02-docker-ps-manuel.png)
+
+```bash
+curl http://localhost:9000/api/health
+```
+
+![curl](captures/03-curl-api.png)
+
+Client : http://localhost:3000
+
+![client](captures/04-page-client.png)
+
+## Docker Compose
+
+```bash
+docker compose up --build
+docker compose ps
+docker compose down
+```
+
+![compose ps](captures/05-compose-ps.png)
