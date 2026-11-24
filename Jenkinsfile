@@ -23,7 +23,10 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'curl --fail --retry 10 --retry-delay 3 --retry-connrefused http://localhost:9000/api/health'
+                retry(6) {
+                    sleep time: 5, unit: 'SECONDS'
+                    bat 'curl --fail http://localhost:9000/api/health'
+                }
             }
         }
     }
